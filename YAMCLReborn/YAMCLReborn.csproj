@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.17763.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <ApplicationDefaultFont>Inter, 9pt</ApplicationDefaultFont>
+	  <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CmlLib.Core" Version="4.0.6" />
+    <PackageReference Include="CmlLib.Core.Auth.Microsoft" Version="3.3.1" />
+    <PackageReference Include="CmlLib.Core.Installer.Forge" Version="1.1.1" />
+    <PackageReference Include="CmlLib.Core.Installer.NeoForge" Version="4.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="UI\Oobe\Controls\AccountStepControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UI\Oobe\Controls\OtherSettingsStepControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>
