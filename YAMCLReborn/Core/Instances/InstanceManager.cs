@@ -122,72 +122,79 @@ namespace YAMCLReborn.Core.Instances
 
         private static async void InstallLoader(string javaPath, Instance instance)
         {
-            switch (instance.Loader.Kind)
+            try
             {
-                case Modding.ModLoaderKind.Fabric:
-                    var fabricInstaller = new FabricInstaller(Globals.Http);
+                switch (instance.Loader.Kind)
+                {
+                    case Modding.ModLoaderKind.Fabric:
+                        var fabricInstaller = new FabricInstaller(Globals.Http);
 
-                    if (instance.Loader.Version == "latest")
-                        instance.Version = await fabricInstaller.Install(instance.BaseVersion!, instance.McPath);
-                    else
-                        instance.Version = await fabricInstaller.Install(instance.BaseVersion!,
-                            instance.Loader.Version!,
-                            instance.McPath);
-
-                    break;
-
-                case Modding.ModLoaderKind.Forge:
-                    // Unfortunately cmllib doesnt let you install a specific version of forge for some reason
-                    var forgeInstaller = new ForgeInstaller(instance.Launcher!, Globals.Http);
-                    instance.Version = await forgeInstaller.Install(instance.BaseVersion!, new ForgeInstallOptions()
-                    {
-                        JavaPath = javaPath,
-                    });
-
-                    break;
-
-                case Modding.ModLoaderKind.NeoForge:
-                    // Same goes for neoforge
-                    var neoForgeInstaller = new NeoForgeInstaller(instance.Launcher!);
-                    instance.Version = await neoForgeInstaller.Install(instance.BaseVersion!, new NeoForgeInstallOptions()
-                    {
-                        JavaPath = javaPath
-                    });
-
-                    break;
-
-                case Modding.ModLoaderKind.Quilt:
-                    var quiltInstaller = new QuiltInstaller(Globals.Http);
-
-                    if (instance.Loader.Version == "latest")
-                        instance.Version = await quiltInstaller.Install(instance.BaseVersion!, instance.McPath);
-                    else
-                        instance.Version = await quiltInstaller.Install(instance.BaseVersion!,
-                            instance.Loader.Version!,
-                            instance.McPath);
-
-                    break;
-
-                case Modding.ModLoaderKind.LiteLoader:
-                    var liteLoaderInstaller = new LiteLoaderInstaller(Globals.Http);
-                    var versions = await liteLoaderInstaller.GetAllLiteLoaders();
-
-                    var version = versions.First(v =>
-                    {
                         if (instance.Loader.Version == "latest")
-                            return v.BaseVersion == instance.Version;
+                            instance.Version = await fabricInstaller.Install(instance.BaseVersion!, instance.McPath);
+                        else
+                            instance.Version = await fabricInstaller.Install(instance.BaseVersion!,
+                                instance.Loader.Version!,
+                                instance.McPath);
 
-                        return v.BaseVersion == instance.Version && v.Version == instance.Loader!.Version;
-                    });
+                        break;
 
-                    instance.Version = await liteLoaderInstaller.Install(version,
-                        await instance.Launcher!.GetVersionAsync(instance.BaseVersion!),
-                        instance.McPath);
+                    case Modding.ModLoaderKind.Forge:
+                        // Unfortunately cmllib doesnt let you install a specific version of forge for some reason
+                        var forgeInstaller = new ForgeInstaller(instance.Launcher!, Globals.Http);
+                        instance.Version = await forgeInstaller.Install(instance.BaseVersion!, new ForgeInstallOptions()
+                        {
+                            JavaPath = javaPath,
+                        });
 
-                    break;
+                        break;
 
-                default:
-                    break;
+                    case Modding.ModLoaderKind.NeoForge:
+                        // Same goes for neoforge
+                        var neoForgeInstaller = new NeoForgeInstaller(instance.Launcher!);
+                        instance.Version = await neoForgeInstaller.Install(instance.BaseVersion!, new NeoForgeInstallOptions()
+                        {
+                            JavaPath = javaPath
+                        });
+
+                        break;
+
+                    case Modding.ModLoaderKind.Quilt:
+                        var quiltInstaller = new QuiltInstaller(Globals.Http);
+
+                        if (instance.Loader.Version == "latest")
+                            instance.Version = await quiltInstaller.Install(instance.BaseVersion!, instance.McPath);
+                        else
+                            instance.Version = await quiltInstaller.Install(instance.BaseVersion!,
+                                instance.Loader.Version!,
+                                instance.McPath);
+
+                        break;
+
+                    case Modding.ModLoaderKind.LiteLoader:
+                        var liteLoaderInstaller = new LiteLoaderInstaller(Globals.Http);
+                        var versions = await liteLoaderInstaller.GetAllLiteLoaders();
+
+                        var version = versions.First(v =>
+                        {
+                            if (instance.Loader.Version == "latest")
+                                return v.BaseVersion == instance.Version;
+
+                            return v.BaseVersion == instance.Version && v.Version == instance.Loader!.Version;
+                        });
+
+                        instance.Version = await liteLoaderInstaller.Install(version,
+                            await instance.Launcher!.GetVersionAsync(instance.BaseVersion!),
+                            instance.McPath);
+
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(LogLevel.Error, $"Failed to install {instance.Loader.Kind}: {ex.Message}");
             }
         }
 
