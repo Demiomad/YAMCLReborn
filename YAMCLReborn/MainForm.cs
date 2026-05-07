@@ -157,7 +157,7 @@ namespace YAMCLReborn
             Logger.Log(LogLevel.Info, "Instance info:");
             Logger.Log(LogLevel.Info, $"Mod loader: {instance.Loader.Kind} {instance.Loader.Version}");
             Logger.Log(LogLevel.Info, $"Game version: {instance.BaseVersion}");
-            Logger.Log(LogLevel.Info, $"Icon file: {instance.IconFile}");
+            Logger.Log(LogLevel.Info, $"Icon file: {instance.IconFile ?? "None"}");
 
             var proc = await InstanceManager.Launch(instance, (procBytes, totalBytes, percent) =>
             {
