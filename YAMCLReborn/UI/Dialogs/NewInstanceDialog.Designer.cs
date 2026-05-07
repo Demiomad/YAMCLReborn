@@ -77,10 +77,9 @@
             // loaderKindBox
             // 
             loaderKindBox.FormattingEnabled = true;
-            loaderKindBox.Items.AddRange(new object[] { "Vanilla", "Fabric", "Forge", "NeoForge", "Quilt", "LiteLoader" });
             loaderKindBox.Location = new Point(54, 305);
             loaderKindBox.Name = "loaderKindBox";
-            loaderKindBox.Size = new Size(301, 25);
+            loaderKindBox.Size = new Size(734, 25);
             loaderKindBox.TabIndex = 4;
             // 
             // loaderLbl
@@ -104,7 +103,7 @@
             // loaderVerLbl
             // 
             loaderVerLbl.AutoSize = true;
-            loaderVerLbl.Location = new Point(361, 308);
+            loaderVerLbl.Location = new Point(12, 335);
             loaderVerLbl.Name = "loaderVerLbl";
             loaderVerLbl.Size = new Size(182, 17);
             loaderVerLbl.TabIndex = 7;
@@ -112,14 +111,14 @@
             // 
             // loaderVerBox
             // 
-            loaderVerBox.Location = new Point(549, 308);
+            loaderVerBox.Location = new Point(200, 332);
             loaderVerBox.Name = "loaderVerBox";
-            loaderVerBox.Size = new Size(239, 22);
+            loaderVerBox.Size = new Size(588, 22);
             loaderVerBox.TabIndex = 8;
             // 
             // createBtn
             // 
-            createBtn.Location = new Point(713, 336);
+            createBtn.Location = new Point(713, 396);
             createBtn.Name = "createBtn";
             createBtn.Size = new Size(75, 23);
             createBtn.TabIndex = 9;
@@ -129,7 +128,7 @@
             // 
             // cancelBtn
             // 
-            cancelBtn.Location = new Point(12, 336);
+            cancelBtn.Location = new Point(16, 396);
             cancelBtn.Name = "cancelBtn";
             cancelBtn.Size = new Size(75, 23);
             cancelBtn.TabIndex = 10;
@@ -141,7 +140,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 366);
+            ClientSize = new Size(800, 431);
             Controls.Add(cancelBtn);
             Controls.Add(createBtn);
             Controls.Add(loaderVerBox);

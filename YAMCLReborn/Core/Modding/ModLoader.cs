@@ -18,7 +18,6 @@ namespace YAMCLReborn.Core.Modding
         /// <summary>
         /// The mod loader's kind.
         /// </summary>
-        [JsonConverter(typeof(JsonStringEnumConverter))]
         public ModLoaderKind Kind { get; set; }
     }
 }

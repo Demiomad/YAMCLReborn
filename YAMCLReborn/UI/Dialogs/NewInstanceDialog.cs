@@ -17,7 +17,7 @@ namespace YAMCLReborn.UI.Dialogs
     {
         public string? InstanceName { get; private set; }
         public string? InstanceVersion { get; private set; }
-        public string? LoaderVersion { get; private set; }
+        public string? LoaderVersion { get; private set; } = "latest";
         public ModLoaderKind LoaderKind { get; private set; }
 
         private VersionMetadataCollection _versions;
@@ -46,11 +46,11 @@ namespace YAMCLReborn.UI.Dialogs
                 InstanceVersion = _versions != null ? _versions.LatestReleaseName! : "1.21";
 
             LoaderVersion = loaderVerBox.Text ?? "latest";
-            
-            if (!string.IsNullOrEmpty(loaderKindBox.SelectedText))
-                LoaderKind = Enum.Parse<ModLoaderKind>(loaderKindBox.SelectedText);
+
+            if (loaderKindBox.SelectedIndex != -1)
+                LoaderKind = (ModLoaderKind)loaderKindBox.SelectedIndex;
             else
-                LoaderKind = Enum.Parse<ModLoaderKind>("Vanilla");
+                LoaderKind = ModLoaderKind.Vanilla;
 
             DialogResult = DialogResult.OK;
             Close();
@@ -64,6 +64,9 @@ namespace YAMCLReborn.UI.Dialogs
 
                 foreach (var version in _versions)
                     versionListBox.Items.Add($"{version.Type} {version.Name}");
+
+                foreach (var loader in Enum.GetNames<ModLoaderKind>())
+                    loaderKindBox.Items.Add(loader);
             }
             catch (Exception ex)
             {
