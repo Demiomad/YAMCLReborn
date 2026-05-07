@@ -46,6 +46,10 @@ namespace YAMCLReborn
 
         private void InstanceListBoxSelectionChanged(object sender, EventArgs e)
         {
+            if (instanceListBox.SelectedIndex == -1 ||
+                instanceListBox.SelectedIndex > InstanceManager.Instances.Count)
+                return;
+
             var instance = InstanceManager.Instances[instanceListBox.SelectedIndex];
 
             instanceNameLbl.Text = instance.Name;
