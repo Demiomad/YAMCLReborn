@@ -19,5 +19,11 @@ namespace YAMCLReborn.Core.Modding
         /// The mod loader's kind.
         /// </summary>
         public ModLoaderKind Kind { get; set; }
+
+        public override string ToString()
+        {
+            var versionString = string.IsNullOrEmpty(Version) ? "latest" : Version;
+            return $"{Kind} {versionString}";
+        }
     }
 }

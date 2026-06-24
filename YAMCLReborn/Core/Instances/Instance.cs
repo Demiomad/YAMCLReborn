@@ -5,6 +5,9 @@ using System.Text;
 using CmlLib.Core.Java;
 using YAMCLReborn.Core.Modding;
 using System.Text.Json.Serialization;
+using System.ComponentModel;
+using System.Windows.Forms.Design;
+using System.Drawing.Design;
 
 namespace YAMCLReborn.Core.Instances
 {
@@ -14,51 +17,72 @@ namespace YAMCLReborn.Core.Instances
     public record Instance
     {
         /// <summary>
-        /// The instance's name.
+        /// Gets or sets this instance's name.
         /// </summary>
+        [DisplayName("Name"),
+            Description("The name of this instance."),
+            Category("Instance")]
         public string? Name { get; init; }
 
         /// <summary>
-        /// The instance's icon file.
+        /// Gets or sets the path of this instance's icon file.
         /// </summary>
+        [DisplayName("Icon"),
+            Description("The icon of this instance."),
+            Editor(typeof(FileNameEditor), typeof(UITypeEditor)),
+            Category("Instance")]
         public string? IconFile { get; init; }
 
         /// <summary>
-        /// The instance's ".minecraft" folder path.
+        /// Gets or sets this instance's ".minecraft" folder path.
         /// </summary>
+        [DisplayName("Path"),
+            Description("The path of this instance's \".minecraft\" folder."),
+            ReadOnly(true),
+            Category("Game")]
         public string Path { get; set; }
 
         /// <summary>
-        /// The version that gets used to install any mod loaders, etc.
+        /// Gets or sets the version that gets used to install any mod loaders, etc.
         /// </summary>
+        [DisplayName("Game Version"),
+            Description("The game's version."),
+            Category("Game")]
         public string? BaseVersion { get; set; }
 
         /// <summary>
-        /// The version that gets used to launch the game.
+        /// Gets or sets the version that gets used to launch the game.
         /// </summary>
+        [Browsable(false)]
         public string? Version { get; set; }
 
         /// <summary>
-        /// The <see cref="MinecraftPath"/> of the instance's path.
+        /// Gets the <see cref="MinecraftPath"/> of the instance's path.
         /// </summary>
-        [JsonIgnore]
+        [JsonIgnore,
+            Browsable(false)]
         public MinecraftPath McPath => new(Path!);
 
         /// <summary>
-        /// The Minecraft launcher object used to launch the instance.
+        /// Gets the Minecraft launcher object used to launch the instance.
         /// </summary>
-        [JsonIgnore]
+        [JsonIgnore,
+            Browsable(false)]
         public MinecraftLauncher? Launcher { get; init; }
 
         /// <summary>
-        /// The launcher's parameters.
+        /// Gets the launcher's parameters.
         /// </summary>
-        [JsonIgnore]
+        [JsonIgnore,
+            Browsable(false)]
         public MinecraftLauncherParameters? Params { get; init; }
 
         /// <summary>
-        /// The instance's mod loader.
+        /// Gets or sets the instance's mod loader.
         /// </summary>
+        [DisplayName("Mod Loader"),
+            Description("The mod loader to use."),
+            Category("Modding")]
         public ModLoader Loader { get; set; }
 
         public Instance()

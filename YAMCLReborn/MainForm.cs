@@ -28,7 +28,7 @@ namespace YAMCLReborn
                 instanceListBox.Items.Add($"{instance.Name} ({instance.BaseVersion})");
         }
 
-        private void RefreshStripBtnClicked(object sender, EventArgs e)
+        private void RefreshInstances()
         {
             Logger.Log(LogLevel.Info, "Refreshing instances");
 
@@ -42,6 +42,11 @@ namespace YAMCLReborn
                     Logger.Log(LogLevel.Info, $"New instance found: {instance.Name} ({instance.Version})");
 
             ShowInstances();
+        }
+
+        private void RefreshStripBtnClicked(object sender, EventArgs e)
+        {
+            RefreshInstances();
         }
 
         private void InstanceListBoxSelectionChanged(object sender, EventArgs e)
@@ -58,6 +63,8 @@ namespace YAMCLReborn
 
             if (File.Exists(instance.IconFile))
                 instanceIcon.ImageLocation = instance.IconFile;
+
+            instPropertyGrid.SelectedObject = instance;
         }
 
         private void DelInstanceBtnClicked(object sender, EventArgs e)
@@ -87,6 +94,8 @@ namespace YAMCLReborn
 
                     instanceNameLbl.Text = "[DELETED INSTANCE]";
                     instanceVersionLbl.Text = "Deleted instance";
+                    instPropertyGrid.SelectedObject = null;
+                    instanceIcon.Image = null;
                 }
                 catch (Exception ex)
                 {
@@ -108,11 +117,6 @@ namespace YAMCLReborn
                 OobeManager.Show(true);
                 Show();
             }
-        }
-
-        private void EditInstanceBtnClicked(object sender, EventArgs e)
-        {
-
         }
 
         private void NewStripBtnClicked(object sender, EventArgs e)
@@ -163,7 +167,7 @@ namespace YAMCLReborn
             Logger.Log(LogLevel.Info, $"Game version: {instance.BaseVersion}");
             Logger.Log(LogLevel.Info, $"Icon file: {instance.IconFile ?? "None"}");
 
-            var proc = await InstanceManager.Launch(instance, (procBytes, totalBytes, percent) =>
+            var proc = await InstanceManager.Start(instance, (procBytes, totalBytes, percent) =>
             {
                 Invoke(() => byteProgBar.Value = (int)percent);
                 Logger.Log(LogLevel.Info, $"Byte progress: {procBytes}/{totalBytes} ({percent}%)");
@@ -190,6 +194,19 @@ namespace YAMCLReborn
 
             wrapper.StartWithEvents();
             await wrapper.WaitForExitTaskAsync();
+        }
+
+        private void InstPropertyGridPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            var selectedIndex = instanceListBox.SelectedIndex;
+
+            InstanceManager.Save();
+            RefreshInstances();
+
+            if (selectedIndex > instanceListBox.Items.Count || selectedIndex < 0)
+                return;
+
+            instanceListBox.SelectedIndex = selectedIndex;
         }
     }
 }

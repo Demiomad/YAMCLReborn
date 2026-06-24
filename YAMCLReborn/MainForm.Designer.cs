@@ -41,11 +41,11 @@
             instanceVersionLbl = new Label();
             delInstanceBtn = new Button();
             instanceIcon = new PictureBox();
-            editInstanceBtn = new Button();
             launchBtn = new Button();
             instanceModLoaderLbl = new Label();
             fileProgBar = new ProgressBar();
             byteProgBar = new ProgressBar();
+            instPropertyGrid = new PropertyGrid();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)instanceIcon).BeginInit();
             SuspendLayout();
@@ -68,7 +68,7 @@
             menuStrip.Items.AddRange(new ToolStripItem[] { instancesStrip, settingsStrip });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
-            menuStrip.Size = new Size(793, 25);
+            menuStrip.Size = new Size(896, 25);
             menuStrip.TabIndex = 1;
             menuStrip.Text = "menuStrip1";
             // 
@@ -137,7 +137,7 @@
             // delInstanceBtn
             // 
             delInstanceBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            delInstanceBtn.Location = new Point(475, 448);
+            delInstanceBtn.Location = new Point(394, 448);
             delInstanceBtn.Name = "delInstanceBtn";
             delInstanceBtn.Size = new Size(75, 27);
             delInstanceBtn.TabIndex = 4;
@@ -148,27 +148,17 @@
             // instanceIcon
             // 
             instanceIcon.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            instanceIcon.Location = new Point(717, 28);
+            instanceIcon.Location = new Point(394, 378);
             instanceIcon.Name = "instanceIcon";
             instanceIcon.Size = new Size(64, 64);
+            instanceIcon.SizeMode = PictureBoxSizeMode.StretchImage;
             instanceIcon.TabIndex = 5;
             instanceIcon.TabStop = false;
-            // 
-            // editInstanceBtn
-            // 
-            editInstanceBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            editInstanceBtn.Location = new Point(394, 448);
-            editInstanceBtn.Name = "editInstanceBtn";
-            editInstanceBtn.Size = new Size(75, 27);
-            editInstanceBtn.TabIndex = 6;
-            editInstanceBtn.Text = "Edit";
-            editInstanceBtn.UseVisualStyleBackColor = true;
-            editInstanceBtn.Click += EditInstanceBtnClicked;
             // 
             // launchBtn
             // 
             launchBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            launchBtn.Location = new Point(706, 448);
+            launchBtn.Location = new Point(553, 448);
             launchBtn.Name = "launchBtn";
             launchBtn.Size = new Size(75, 27);
             launchBtn.TabIndex = 7;
@@ -191,27 +181,38 @@
             fileProgBar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             fileProgBar.Location = new Point(394, 510);
             fileProgBar.Name = "fileProgBar";
-            fileProgBar.Size = new Size(387, 23);
+            fileProgBar.Size = new Size(234, 23);
             fileProgBar.TabIndex = 9;
             // 
             // byteProgBar
             // 
             byteProgBar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            byteProgBar.BackColor = SystemColors.Control;
             byteProgBar.Location = new Point(394, 481);
             byteProgBar.Name = "byteProgBar";
-            byteProgBar.Size = new Size(387, 23);
+            byteProgBar.Size = new Size(234, 23);
             byteProgBar.TabIndex = 10;
+            // 
+            // instPropertyGrid
+            // 
+            instPropertyGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            instPropertyGrid.BackColor = SystemColors.Control;
+            instPropertyGrid.Location = new Point(634, 28);
+            instPropertyGrid.Name = "instPropertyGrid";
+            instPropertyGrid.Size = new Size(250, 505);
+            instPropertyGrid.TabIndex = 11;
+            instPropertyGrid.PropertyValueChanged += InstPropertyGridPropertyValueChanged;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(793, 545);
+            ClientSize = new Size(896, 545);
+            Controls.Add(instPropertyGrid);
             Controls.Add(byteProgBar);
             Controls.Add(fileProgBar);
             Controls.Add(instanceModLoaderLbl);
             Controls.Add(launchBtn);
-            Controls.Add(editInstanceBtn);
             Controls.Add(instanceIcon);
             Controls.Add(delInstanceBtn);
             Controls.Add(instanceVersionLbl);
@@ -220,6 +221,7 @@
             Controls.Add(menuStrip);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip;
+            MinimumSize = new Size(844, 306);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "YAMCL: Reborn";
@@ -242,12 +244,12 @@
         private PictureBox instanceIcon;
         private ToolStripMenuItem settingsStrip;
         private ToolStripMenuItem rerunSetupStripBtn;
-        private Button editInstanceBtn;
         private ToolStripMenuItem newStripBtn;
         private ToolStripSeparator tsSep1;
         private Button launchBtn;
         private Label instanceModLoaderLbl;
         private ProgressBar fileProgBar;
         private ProgressBar byteProgBar;
+        private PropertyGrid instPropertyGrid;
     }
 }

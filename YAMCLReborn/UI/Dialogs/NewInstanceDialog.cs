@@ -24,6 +24,7 @@ namespace YAMCLReborn.UI.Dialogs
 
         public NewInstanceDialog()
         {
+            _versions = new VersionMetadataCollection();
             InitializeComponent();
         }
 

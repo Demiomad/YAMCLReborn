@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace YAMCLReborn.Core.Modding
@@ -14,6 +16,8 @@ namespace YAMCLReborn.Core.Modding
         NeoForge,
         Quilt,
         LiteLoader,
+
+        [Display(Name = "Vanilla (No Mods)")]
         Vanilla
     }
 }

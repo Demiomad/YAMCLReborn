@@ -117,7 +117,7 @@ namespace YAMCLReborn.Core.Instances
             if (instance == null)
                 return null;
 
-            return await Launch(instance);
+            return await Start(instance);
         }
 
         private static async void InstallLoader(string javaPath, Instance instance)
@@ -235,17 +235,17 @@ namespace YAMCLReborn.Core.Instances
         }
 
         /// <summary>
-        /// Launches an instance.
+        /// Start an instance.
         /// </summary>
-        /// <param name="instance">The instance to launch.</param>
+        /// <param name="instance">The instance to start.</param>
         /// <returns>The instance's process.</returns>
-        public static async Task<Process?> Launch(Instance instance,
+        public static async Task<Process?> Start(Instance instance,
             Action<long, long, double>? onByteProgressChanged = null,
             Action<long, long, string?>? onFileProgressChanged = null)
         {
             if (string.IsNullOrEmpty(instance.Version) || instance.Launcher == null)
             {
-                Logger.Log(LogLevel.Fatal, "Version or launcher were null");
+                Logger.Log(LogLevel.Fatal, "Version or launcher are null");
                 return null;
             }
 
