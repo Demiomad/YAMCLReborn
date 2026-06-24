@@ -4,7 +4,7 @@ A rewrite of the now deleted YAMCL.
 # Features
 | Feature             | YAMCL             | YAMCL: Reborn |
 | ------------------- | ----------------- | ------------- |
-| Instance Management | ✅                | ✅ (Editing is not implemented yet)           |
+| Instance Management | ✅                | ✅           |
 | Setting Management  | ✅                | ✅           |
 | Mod Loader Support  | ✅                | ✅           |
 | Instance Icons      | ❌                | ✅           |
